@@ -8,12 +8,43 @@
     # and has_special_tool (boolean, we want to describe if they have a special_tool start automatically to false, readable)
     # -- you decide if they have to be readable/writable attributes
 # Notice attributes are set as a single hash
-# For this class Superheros objects will interact with other Superhero objects by passing them into the method arguements. (check Driver code)
+# For this class Superheros objects will interact with other Superhero objects by passing them into the method arguments. (check Driver code)
 # Superheros can hit, so they need a hit method that takes away hit points from another Superhero object, by the number of attack they have. (again check the driver code)
 # if a Superhero has a special_tool their attack is tripled
 # if a Superhero is attacked and their hitpoints are less than 1, they are no longer alive
 # Superhero needs a grab_tool method, that sets the has_special_tool attribute to true.
 
+class Superhero
+
+  # Must have attr_accessor in order to read and write attribute values
+  attr_accessor :name, :hitpoints, :attack, :alive, :has_special_tool
+
+  def initialize(input)
+    @name = input[:name]
+    @hitpoints = input[:hitpoints]
+    @attack = input[:attack]
+    @alive = true
+    @has_special_tool = false
+  end
+
+  def hit(superhero)
+    superhero.hitpoints = (superhero.hitpoints - @attack)
+    
+    if @hitpoints < 1
+      @alive = false
+    end
+
+    if superhero.hitpoints < 1
+      superhero.alive = false
+    end
+  end
+
+  def grab_tool
+    @has_special_tool = true
+    @attack *= 3
+  end
+
+end
 
 # Driver code - don't touch anything below this line.
 puts "TESTING the Superhero class..."
